@@ -1,1 +1,19 @@
-<p>movie works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table class="table table-dark">
+      @for (movie of movies; track $index) {
+      <tr>
+        <td>{{ movie.movieId }}</td>
+        <td>{{ movie.movieName }}</td>
+        <td>{{ movie.director }}</td>
+      </tr>
+      }
+    </table>
+  </body>
+</html>
