@@ -1,34 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
-
-
+import { Movie } from '../../models/movie';
+import { HttpClientModule } from '@angular/common/http';
+import { response } from 'express';
+import { error } from 'console';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css']
+  styleUrls: ['./movie.component.css'],
 })
+export class MovieComponent implements OnInit {
+  movies: Movie[] = [];
+  dataLoaded = false;
 
+  constructor(private movieService: MovieService) {}
 
+  ngOnInit(): void {
+    this.getMovies();
+  }
 
-export class MovieComponent {
-  movie = { movieId: 1, movieName: 'The Family', director: 'Mr. Nobody' };
-  movie2 = { movieId: 2, movieName: 'The Family1', director: 'Mr. Nobody' };
-  movie3 = { movieId: 2, movieName: 'The Family3', director: 'Mr. Nobody' };
-  movie4 = { movieId: 3, movieName: 'The Family5', director: 'Mr. Nobody' };
-  movie5 = { movieId: 1, movieName: 'The Family8', director: 'Mr. Nobody' };
-  movie6 = { movieId: 1, movieName: 'The Family8', director: 'Mr. Nobody' };
-
-  movies = [
-    this.movie,
-    this.movie2,
-    this.movie3,
-    this.movie4,
-    this.movie5,
-    this.movie6,
-  ];
+  getMovies() {
+    this.movieService.getMovies().subscribe((response) => {
+      this.movies = response.data;
+      this.dataLoaded = true;
+    });
+  }
 }
