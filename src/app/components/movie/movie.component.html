@@ -1,37 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div *ngIf="!dataLoaded" class="spinner-border text-success" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <table *ngIf="dataLoaded" class="table table-dark">
-      <thead>
-        <tr style="text-align: center">
-          <th>Id</th>
-          <th>Yönetmen Id</th>
-          <th>Kategori Id</th>
-          <th>Aktör Id</th>
-          <th>Film Adı</th>
-          <th>Açıklama</th>
-          <th>Fragman</th>
-        </tr>
-      </thead>
-      @for (movie of movies; track $index) {
-      <tr>
-        <td>{{ movie.movieId }}</td>
-        <td>{{ movie.directorId }}</td>
-        <td>{{ movie.categoryId }}</td>
-        <td>{{ movie.actorId }}</td>
-        <td>{{ movie.movieName }}</td>
-        <td>{{ movie.description }}</td>
-        <td>{{ movie.trailerUrl }}</td>
-      </tr>
-      }
-    </table>
-  </body>
-</html>
+<div *ngIf="!dataLoaded" class="spinner-border text-success" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<table *ngIf="dataLoaded" class="table table-dark">
+  <thead>
+    <tr style="text-align: center">
+      <th>Id</th>
+      <th>Yönetmen Id</th>
+      <th>Kategori Id</th>
+      <th>Aktör Id</th>
+      <th>Film Adı</th>
+      <th>Açıklama</th>
+      <th>Fragman</th>
+    </tr>
+  </thead>
+  @for (movie of movies; track $index) {
+  <tr>
+    <td>{{ movie.movieId }}</td>
+    <td>{{ movie.directorId }}</td>
+    <td>{{ movie.categoryId }}</td>
+    <td>{{ movie.actorId }}</td>
+    <td>{{ movie.movieName }}</td>
+    <td>{{ movie.description }}</td>
+    <td>{{ movie.trailerUrl }}</td>
+  </tr>
+  }
+</table>

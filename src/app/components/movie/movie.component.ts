@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie } from '../../models/movie';
 import { HttpClientModule } from '@angular/common/http';
-import { response } from 'express';
-import { error } from 'console';
 import { MovieService } from '../../services/movie.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie',
@@ -17,14 +16,30 @@ export class MovieComponent implements OnInit {
   movies: Movie[] = [];
   dataLoaded = false;
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getMovies();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['categoryId']) {
+        this.getMoviesByCategory(params['categoryId']);
+      } else {
+        this.getMovies();
+      }
+    });
   }
 
   getMovies() {
     this.movieService.getMovies().subscribe((response) => {
+      this.movies = response.data;
+      this.dataLoaded = true;
+    });
+  }
+
+  getMoviesByCategory(categoryId: number) {
+    this.movieService.getMoviesByCategory(categoryId).subscribe((response) => {
       this.movies = response.data;
       this.dataLoaded = true;
     });
